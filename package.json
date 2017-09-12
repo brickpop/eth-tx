@@ -1,0 +1,36 @@
+{
+  "name": "eth-tx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "precommit": "lint-staged"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ledfusion/eth-tx.git"
+  },
+  "keywords": [],
+  "author": "Jordi Moraleda <jordi@tvrbo.pro>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ledfusion/eth-tx/issues"
+  },
+  "homepage": "https://github.com/ledfusion/eth-tx#readme",
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.6.1",
+    "husky": "^0.13.4",
+    "lint-staged": "^3.6.1",
+    "prettier": "^1.4.4"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
