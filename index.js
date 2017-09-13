@@ -4,31 +4,50 @@ This library is a combination based on the work of Jordi Baylina
 - https://github.com/jbaylina/runethtx
 */
 
-const { connect, deployContract, delay, rpcSend } = require("./lib/rpc.js");
 const {
-  bundleContracts,
-  applyConstants,
-  compileBundle,
-  compile
+  connect,
+  useConnection,
+  deployContract,
+  delay,
+  rpcSend,
+  sendTransaction,
+  sendContractTransaction,
+  sendContractConstantTransaction,
+
+  // using the currently active web3
+  getBalance,
+  getTransactionReceipt,
+  getBlock,
+  getAccounts,
+  estimateGas
+} = require("./lib/rpc.js");
+
+const {
+  compileTo,
+  compileBundled,
+  bundleContractFile,
+  wrapContract
 } = require("./lib/compile.js");
 
 module.exports = {
   connect,
+  useConnection,
   deployContract,
   delay,
   rpcSend,
+  sendTransaction,
+  sendContractTransaction,
+  sendContractConstantTransaction,
 
-  bundleContracts,
-  applyConstants,
-  compileBundle,
-  compile
+  // using the currently active web3
+  getBalance,
+  getTransactionReceipt,
+  getBlock,
+  getAccounts,
+  estimateGas,
 
-  // deploy,
-  // sendContractTx,
-  // sendTx,
-  // getBalance,
-  // getTransactionReceipt,
-  // getBlock,
-  // asyncfunc,
-  // generateClass
+  compileTo,
+  compileBundled,
+  bundleContractFile,
+  wrapContract
 };
