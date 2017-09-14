@@ -32,22 +32,23 @@ const {
 module.exports = {
   connect,
   useConnection,
-  deployContract,
   delay,
   rpcSend,
+
+  compileTo,
+  compileBundled,
+  bundleContractFile,
+  wrapContract,
+
+  deployContract,
   sendTransaction,
   sendContractTransaction,
   sendContractConstantTransaction,
 
   // using the currently active web3
   getBalance,
-  getTransactionReceipt,
-  getBlock,
   getAccounts,
-  estimateGas,
-
-  compileTo,
-  compileBundled,
-  bundleContractFile,
-  wrapContract
+  getBlock,
+  getTransactionReceipt,
+  estimateGas
 };
