@@ -5,6 +5,8 @@ const ethTx = require("..");
 const path = require("path");
 const fs = require("fs");
 
+var address;
+
 ///////////////////////////////////////////////////////////////////////////////
 // Connect to an external RPC node
 async function startConnection() {
@@ -59,15 +61,29 @@ async function deploy() {
     );
     // const OwnedContract = ethTx.wrapContract(Owned.abi, Owned.byteCode);
 
-    // WIP
+    const initialHash = "0x1234";
+    console.log("Deploying HashStore");
+    const storeInstance = await HashStoreContract.new(initialHash);
 
-    // const bytesParam = new ArrayBuffer([1, 2, 3, 4]);
-    const bytesParam = "0x1234";
-    const storeInstance = await HashStoreContract.new(bytesParam);
+    address = storeInstance.$address;
+    console.log("Deployed on", address);
 
-    debugger;
+    console.log("Sending setHash on HashStore with", initialHash);
+    var txHash = await storeInstance.setHash(initialHash);
+    console.log("Transaction", txHash);
 
-    console.log(storeInstance);
+    console.log("Calling getHash on HashStore", await storeInstance.getHash());
+
+    const newHash = "0x5678";
+    console.log("Sending setHash on HashStore with", newHash);
+    txHash = await storeInstance.setHash(newHash);
+    console.log("Transaction", txHash);
+
+    console.log(
+      "Calling getHash on HashStore =>",
+      await storeInstance.getHash(),
+      "\n"
+    );
   } catch (err) {
     console.log(err);
   }
@@ -75,6 +91,30 @@ async function deploy() {
 
 ///////////////////////////////////////////////////////////////////////////////
 //
+
+async function reuseContract() {
+  const { HashStore } = require(path.join("..", "build", "data.js"));
+  try {
+    const HashStoreContract = ethTx.wrapContract(
+      HashStore.abi,
+      HashStore.byteCode
+    );
+
+    const newHash = "0x90ab";
+    console.log("Attaching to HashStore on address", address);
+    const storeInstance = new HashStoreContract(address);
+
+    console.log("Sending setHash on HashStore with", newHash);
+    await storeInstance.setHash(newHash);
+
+    console.log(
+      "Calling getHash on HashStore =>",
+      await storeInstance.getHash()
+    );
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -89,7 +129,9 @@ async function main() {
     // await overrideWeb3();
 
     await compile();
+
     await deploy();
+    await reuseContract();
   } catch (err) {
     console.log("Unable to complete", err);
   }
