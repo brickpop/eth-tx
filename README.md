@@ -124,7 +124,7 @@ MyContract.new("parameter-1", "parameter-2")
 	.catch(() => console.log("Error"));
 ```
 
-The static method `new(...)` returns a promise that resolved with an instance of the newly deployed contract.
+The static method `new(...)` returns a promise that resolves with an instance of the newly deployed contract.
 
 ### Attaching to an already deployed contract
 
