@@ -7,6 +7,7 @@ This library is a combination based on the work of Jordi Baylina
 const {
   connect,
   useConnection,
+  getCurrentWeb3,
   deployContract,
   delay,
   rpcSend,
@@ -32,6 +33,7 @@ const {
 module.exports = {
   connect,
   useConnection,
+  getCurrentWeb3,
   delay,
   rpcSend,
 

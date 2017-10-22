@@ -146,6 +146,24 @@ async function reuseContract() {
 ///////////////////////////////////////////////////////////////////////////////
 //
 
+async function transferEth() {
+  console.log("Transfering 0.01 ether");
+
+  try {
+    const accounts = await ethTx.getAccounts();
+    const result = await ethTx.sendTransaction({
+      // from: accounts[0],  // by default
+      to: accounts[1],
+      value: ethTx.getCurrentWeb3().utils.toWei("0.01", "ether")
+      // data: "012345..."
+    });
+
+    console.log("Result", result);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 
@@ -159,6 +177,8 @@ async function main() {
 
     await deploy();
     await reuseContract();
+
+    await transferEth();
   } catch (err) {
     console.log("Unable to complete", err);
   }
