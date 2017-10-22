@@ -9,8 +9,9 @@ contract HashStore is Owned {
         storedHash = _initialHash;
     }
 
-    function setHash(bytes _newHash) onlyOwner {
+    function setHash(bytes _newHash) onlyOwner returns (bytes) {
         storedHash = _newHash;
+        return storedHash;
     }
 
     function getHash() constant returns (bytes) {

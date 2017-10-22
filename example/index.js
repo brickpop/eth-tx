@@ -10,11 +10,13 @@ var address;
 ///////////////////////////////////////////////////////////////////////////////
 // Connect to an external RPC node
 async function startConnection() {
+  console.log("Connecting");
+
   try {
-    ethTx.connect(); // defaults to localhost:8545
+    await ethTx.connect(); // defaults to localhost:8545
 
     // You can also specify your own URL
-    ethTx.connect("http://localhost:8545");
+    await ethTx.connect("http://localhost:8545");
   } catch (err) {
     console.log("Unable to connect", err);
   }
@@ -36,6 +38,8 @@ async function overrideWeb3() {
 // Compile solidity files
 
 async function compile() {
+  console.log("Compiling code");
+
   try {
     var source = path.join(__dirname, "contract-main.sol");
     var destination = path.join(__dirname, "..", "build", "data.js");
@@ -68,20 +72,30 @@ async function deploy() {
     address = storeInstance.$address;
     console.log("Deployed on", address);
 
-    console.log("Sending setHash on HashStore with", initialHash);
-    var txHash = await storeInstance.setHash(initialHash);
-    console.log("Transaction", txHash);
+    console.log("Estimating gas for setHash on HashStore");
+    var gas = await storeInstance.setHash(initialHash).estimateGas();
+    console.log("Estimated", gas);
 
-    console.log("Calling getHash on HashStore", await storeInstance.getHash());
+    console.log("Sending setHash on HashStore with", initialHash);
+    var transaction = await storeInstance.setHash(initialHash).send();
+    console.log("Transaction", transaction);
+
+    var result = await storeInstance.setHash(initialHash).call();
+    console.log("Calling setHash to check the theoretical result:", result);
+
+    console.log(
+      "Calling getHash on HashStore",
+      await storeInstance.getHash().call()
+    );
 
     const newHash = "0x5678";
     console.log("Sending setHash on HashStore with", newHash);
-    txHash = await storeInstance.setHash(newHash);
-    console.log("Transaction", txHash);
+    transaction = await storeInstance.setHash(newHash).send();
+    console.log("Transaction", transaction);
 
     console.log(
       "Calling getHash on HashStore =>",
-      await storeInstance.getHash(),
+      await storeInstance.getHash().call(),
       "\n"
     );
   } catch (err) {
@@ -104,12 +118,21 @@ async function reuseContract() {
     console.log("Attaching to HashStore on address", address);
     const storeInstance = new HashStoreContract(address);
 
+    console.log(
+      "Calling getHash on HashStore =>",
+      await storeInstance.getHash().call()
+    );
+
     console.log("Sending setHash on HashStore with", newHash);
-    await storeInstance.setHash(newHash);
+    await storeInstance.setHash(newHash).send();
+    console.log(
+      "Calling setHash on HashStore =>",
+      await storeInstance.setHash(newHash).call()
+    );
 
     console.log(
       "Calling getHash on HashStore =>",
-      await storeInstance.getHash()
+      await storeInstance.getHash().call()
     );
   } catch (err) {
     console.log(err);
