@@ -15,13 +15,13 @@ This library runs on NodeJS 7+ applications and in any modern web browser.
 
 # Installation
 
-```
-npm install eth-tx
+```sh
+$ npm install eth-tx
 ```
 
 Once the package is ready, import it in your app:
 
-```
+```javascript
 const ethTx = require("eth-tx");
 ```
 
@@ -29,57 +29,57 @@ const ethTx = require("eth-tx");
 
 ## Connection
 
-```
+```javascript
 const { connect, useConnection } = ethTx;
 ```
 
 To simply connect to `localhost:8545`, you can use:
 
-```
+```javascript
 connect()
-	.then(() => console.log("Success))
-	.catch(() => console.log("Error));
+	.then(() => console.log("Success"))
+	.catch(() => console.log("Error"));
 ```
 
 You can specify a custom URL like so:
 
-```
+```javascript
 connect("http://localhost:8545")
-	.then(() => console.log("Success))
-	.catch(() => console.log("Error));
+	.then(() => console.log("Success"))
+	.catch(() => console.log("Error"));
 ```
 
 Or you can reuse an already existing web3 instance:
 
-```
+```javascript
 useConnection(web3)
-	.then(() => console.log("Success))
-	.catch(() => console.log("Error));
+	.then(() => console.log("Success"))
+	.catch(() => console.log("Error"));
 ```
 
 Some of the operations described below may require that a connection is already established.
 
 ## Compiling
 
-```
+```javascript
 const { compileTo, compileBundled } = ethTx;
 ```
 
 ### In-memory
 Both in NodeJS and in the browser, you can use:
 
-```
+```javascript
 const smartContractSourceBundled = "...";
 
 bundleContractFile(smartContractSourceBundled)
 	.then(contracts => { /* ... */})
-	.catch(() => console.log("Error));
+	.catch(() => console.log("Error"));
 ```
 
 ### File system
 To compile a smart contract from the local file system (NodeJS only):
 
-```
+```javascript
 const fs = require('fs');
 const path = require('path');
 
@@ -92,14 +92,14 @@ if (!fs.existsSync(path.dirname(destination))) {
 
 compileTo(source, destination, {})
 	.then(() => { /* ... */})
-	.catch(() => console.log("Error));
+	.catch(() => console.log("Error"));
 ```
 
 ## Working with contracts
 
 Once a contract is compiled, you can wrap it into a class/object using the function `wrapContract`.
 
-```
+```javascript
 const { wrapContract } = ethTx;
 ```
 
@@ -109,7 +109,7 @@ This function generates a customized Javascript class, containing the methods an
 
 Once a contract is compiled, get its Application Binary Interface (ABI) and its Byte Code:
 
-```
+```javascript
 const abi = [...];
 const byteCode = "012345...";
 
@@ -121,7 +121,7 @@ MyContract.new("parameter-1", "parameter-2")
 
 		// ...
 	})
-	.catch(() => console.log("Error));
+	.catch(() => console.log("Error"));
 ```
 
 The static method `new(...)` returns a promise that resolved with an instance of the newly deployed contract.
@@ -130,7 +130,7 @@ The static method `new(...)` returns a promise that resolved with an instance of
 
 To interact with a contract already deployed to the BlockChain, use the constructor with the address:
 
-```
+```javascript
 const abi = [...];
 const byteCode = "012345...";
 const address = "0x1234567890...";
@@ -147,7 +147,7 @@ const myContractInstance = new MyContract(address);
 
 Pass the parameters as show below. Invoking the `.send()` method will send the transaction to the net and may change the state of the contract.
 
-```
+```javascript
 const options = {};
 myContractInstance.setHash("param-1", "param-2").send(options)
 	.then(transaction => {
@@ -155,7 +155,7 @@ myContractInstance.setHash("param-1", "param-2").send(options)
 
 		// ...
 	})
-	.catch(() => console.log("Error));
+	.catch(() => console.log("Error"));
 ```
 
 
@@ -165,7 +165,7 @@ Pass the parameters as show below. Invoking the `.call()` method will execute th
 
 This invocation will not change the state, as no transaction will be sent to the blockchain.
 
-```
+```javascript
 const options = {};
 myContractInstance.getHash("param-1").call(options)
 	.then(value => {
@@ -173,14 +173,14 @@ myContractInstance.getHash("param-1").call(options)
 
 		// ...
 	})
-	.catch(() => console.log("Error));
+	.catch(() => console.log("Error"));
 ```
 
 #### Estimate the gas cost
 
 Pass the parameters as show below. Invoking the `.estimateGas()` method will evaluate the code and resolve the promise to the amount of gas expected to be spent on a successful transaction.
 
-```
+```javascript
 const options = {};
 myContractInstance.setHash("param-1", "param-2").estimateGas(options)
 	.then(gas => {
@@ -188,25 +188,25 @@ myContractInstance.setHash("param-1", "param-2").estimateGas(options)
 
 		// ...
 	})
-	.catch(() => console.log("Error));
+	.catch(() => console.log("Error"));
 ```
 
 ## Working with simple transactions
 
 Transactions can simply be a matter or transfering funds to another account.
 
-```
+```javascript
 var accounts;
 const { getAccounts, sendTransaction } = ethTx;
 
 getAccounts()
 	.then(acc => { accounts = acc; })
-	.catch(() => console.log("Error));
+	.catch(() => console.log("Error"));
 ```
 
 To send ether to another account, we can simply:
 
-```
+```javascript
 const amount = ethTx.getCurrentWeb3().utils.toWei("0.01", "ether");
 
 const params = {
@@ -218,12 +218,12 @@ const params = {
 
 sendTransaction(params)
 	.then(result => console.log("Result", result))
-	.catch(() => console.log("Error));
+	.catch(() => console.log("Error"));
 ```
 
 ## Utilities
 
-```
+```javascript
 const { getBalance, getBlock } = ethTx;
 ```
 
@@ -233,7 +233,7 @@ These two functions are simply a wrapper of their corresponding method in `web3`
 
 Check out the file `example/index.js`.
 
-```
+```sh
 $ node example/index.js
 ```
 
