@@ -25,9 +25,13 @@ async function startConnection() {
 ///////////////////////////////////////////////////////////////////////////////
 // Use your own web3 instance
 
+const Web3 = require("web3");
 async function overrideWeb3() {
   try {
     var web3; // your already initialized web3 instance
+    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+
+    // force to recycle an existing web3 configuration
     await ethTx.useConnection(web3);
   } catch (err) {
     console.log("Unable to connect", err);
@@ -147,11 +151,11 @@ async function reuseContract() {
 
 async function main() {
   try {
-    await startConnection();
+    // await startConnection();
 
-    // await overrideWeb3();
+    await overrideWeb3();
 
-    await compile();
+    // await compile();
 
     await deploy();
     await reuseContract();
