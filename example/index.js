@@ -169,11 +169,11 @@ async function transferEth() {
 
 async function main() {
   try {
-    // await startConnection();
+    await startConnection();
 
-    await overrideWeb3();
+    // await overrideWeb3();
 
-    // await compile();
+    await compile();
 
     await deploy();
     await reuseContract();
