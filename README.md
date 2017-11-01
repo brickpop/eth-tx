@@ -111,7 +111,7 @@ Once a contract is compiled, get its Application Binary Interface (ABI) and its 
 
 ```javascript
 const abi = [...];
-const byteCode = "012345...";
+const byteCode = "0x12345...";
 
 const MyContract = wrapContract(abi, byteCode);
 
