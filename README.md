@@ -132,7 +132,7 @@ To interact with a contract already deployed to the BlockChain, use the construc
 
 ```javascript
 const abi = [...];
-const byteCode = "012345...";
+const byteCode = "0x12345...";
 const address = "0x1234567890...";
 
 const MyContract = wrapContract(abi, byteCode);
@@ -227,7 +227,7 @@ const params = {
 	// from: "0x123456...",  // by default will be accounts[0]
 	to: accounts[1],
 	value: amount,
-	// data: "012345..."  // optional bytecode
+	// data: "0x12345..."  // optional bytecode
 };
 
 sendTransaction(params)
