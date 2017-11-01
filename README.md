@@ -38,7 +38,7 @@ To simply connect to `localhost:8545`, you can use:
 ```javascript
 connect()
 	.then(() => console.log("Success"))
-	.catch(() => console.log("Error"));
+	.catch(err => console.log("Error", err));
 ```
 
 You can specify a custom URL like so:
@@ -46,7 +46,7 @@ You can specify a custom URL like so:
 ```javascript
 connect("http://localhost:8545")
 	.then(() => console.log("Success"))
-	.catch(() => console.log("Error"));
+	.catch(err => console.log("Error", err));
 ```
 
 Or you can reuse an already existing web3 instance:
@@ -54,7 +54,7 @@ Or you can reuse an already existing web3 instance:
 ```javascript
 useConnection(web3)
 	.then(() => console.log("Success"))
-	.catch(() => console.log("Error"));
+	.catch(err => console.log("Error", err));
 ```
 
 Some of the operations described below may require that a connection is already established.
@@ -73,7 +73,7 @@ const smartContractSourceBundled = "...";
 
 bundleContractFile(smartContractSourceBundled)
 	.then(contracts => { /* ... */})
-	.catch(() => console.log("Error"));
+	.catch(err => console.log("Error", err));
 ```
 
 ### File system
@@ -92,7 +92,7 @@ if (!fs.existsSync(path.dirname(destination))) {
 
 compileTo(source, destination, {})
 	.then(() => { /* ... */})
-	.catch(() => console.log("Error"));
+	.catch(err => console.log("Error", err));
 ```
 
 ## Working with contracts
@@ -121,7 +121,7 @@ MyContract.new("parameter-1", "parameter-2")
 
 		// ...
 	})
-	.catch(() => console.log("Error"));
+	.catch(err => console.log("Error", err));
 ```
 
 The static method `new(...)` returns a promise that resolves with an instance of the newly deployed contract.
@@ -155,7 +155,7 @@ myContractInstance.setHash("param-1", "param-2").send(options)
 
 		// ...
 	})
-	.catch(() => console.log("Error"));
+	.catch(err => console.log("Error", err));
 ```
 
 
@@ -173,7 +173,21 @@ myContractInstance.getHash("param-1").call(options)
 
 		// ...
 	})
-	.catch(() => console.log("Error"));
+	.catch(err => console.log("Error", err));
+```
+
+#### Retrieving public variables
+
+The same scenario applies to the public variables of a contract instance.
+
+```javascript
+myContractInstance.totalAmount().call()
+	.then(value => {
+		console.log("totalAmount =", value);
+
+		// ...
+	})
+	.catch(err => console.log("Error", err));
 ```
 
 #### Estimate the gas cost
@@ -188,7 +202,7 @@ myContractInstance.setHash("param-1", "param-2").estimateGas(options)
 
 		// ...
 	})
-	.catch(() => console.log("Error"));
+	.catch(err => console.log("Error", err));
 ```
 
 ## Working with simple transactions
@@ -201,7 +215,7 @@ const { getAccounts, sendTransaction } = ethTx;
 
 getAccounts()
 	.then(acc => { accounts = acc; })
-	.catch(() => console.log("Error"));
+	.catch(err => console.log("Error", err));
 ```
 
 To send ether to another account, we can simply:
@@ -218,7 +232,7 @@ const params = {
 
 sendTransaction(params)
 	.then(result => console.log("Result", result))
-	.catch(() => console.log("Error"));
+	.catch(err => console.log("Error", err));
 ```
 
 ## Utilities
