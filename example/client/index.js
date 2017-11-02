@@ -101,6 +101,23 @@ function setHash(hash) {
     });
 }
 
+function clearHash() {
+  const params = {
+    to: hashStoreInstance.$address,
+    value: 10 // wei
+  };
+
+  ethTx
+    .sendTransaction(params)
+    .then(result => {
+      return displayHash();
+    })
+    .catch(err => {
+      alert(err.message);
+      setStatus(err.message);
+    });
+}
+
 // INIT
 
 init();
@@ -110,3 +127,4 @@ $("#set-1234").click(() => setHash("0x1234"));
 $("#set-5678").click(() => setHash("0x5678"));
 $("#set-90ab").click(() => setHash("0x90ab"));
 $("#set-cdef").click(() => setHash("0xcdef"));
+$("#clear").click(() => clearHash());

@@ -143,7 +143,7 @@ const myContractInstance = new MyContract(address);
 
 ### Interacting with a contract instance
 
-#### Sending a transaction
+#### Sending a transaction to the contract
 
 Pass the parameters as show below. Invoking the `.send()` method will send the transaction to the net and may change the state of the contract.
 
@@ -157,7 +157,6 @@ myContractInstance.setHash("param-1", "param-2").send(options)
 	})
 	.catch(err => console.log("Error", err));
 ```
-
 
 #### Calling a read-only function
 
@@ -199,6 +198,25 @@ const options = {};
 myContractInstance.setHash("param-1", "param-2").estimateGas(options)
 	.then(gas => {
 		console.log("Estimated cost", gas);
+
+		// ...
+	})
+	.catch(err => console.log("Error", err));
+```
+
+#### Invoke the fallback function
+
+Simply send a transaction to the contract's address
+
+```javascript
+const params = {
+	to: myContractInstance.$address,
+	value: 10 // wei
+};
+
+ethTx.sendTransaction(params)
+	.then(receipt => {
+		console.log("Receipt:", receipt);
 
 		// ...
 	})
