@@ -18,6 +18,7 @@ const {
   // using the currently active web3
   getBalance,
   getTransactionReceipt,
+  getNetwork,
   getBlock,
   getAccounts,
   estimateGas
@@ -50,6 +51,7 @@ module.exports = {
   // using the currently active web3
   getBalance,
   getAccounts,
+  getNetwork,
   getBlock,
   getTransactionReceipt,
   estimateGas

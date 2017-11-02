@@ -256,7 +256,7 @@ sendTransaction(params)
 ## Utilities
 
 ```javascript
-const { getBalance, getBlock } = ethTx;
+const { getBalance, getBlock, getNetwork } = ethTx;
 ```
 
 These two functions are simply a wrapper of their corresponding method in `web3`. They return a `Promise` resolving to the appropriate value.

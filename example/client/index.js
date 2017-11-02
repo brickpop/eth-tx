@@ -19,7 +19,12 @@ function init() {
     .then(() => {
       setStatus("Web3 has been loaded");
 
-      // setTimeout(deploy, 3000)
+      return ethTx.getNetwork();
+    })
+    .then(name => {
+      if (name != "ropsten")
+        throw new Error("Please, switch to the Ropsten network");
+
       setInterval(displayHash, 3000);
       return displayHash();
     })
@@ -63,7 +68,7 @@ function deploy() {
 
 function attachToContract() {
   if (!hashStoreInstance) {
-    const address = "0x8af4943ED2744c229976D94045854dc5e374479a";
+    const address = "0x8af4943ED2744c229976D94045854dc5e374479a"; // change it by yours once deployed
     hashStoreInstance = new HashStoreContract(address);
   }
 }
@@ -86,9 +91,14 @@ function displayHash() {
 function setHash(hash) {
   attachToContract();
 
-  hashStoreInstance
-    .setHash(hash)
-    .send({})
+  return ethTx
+    .getNetwork()
+    .then(name => {
+      if (name != "ropsten")
+        throw new Error("Please, switch to the Ropsten network");
+
+      return hashStoreInstance.setHash(hash).send({});
+    })
     .then(result => {
       console.log(result);
       setStatus("Updated the hash to " + hash);
@@ -102,13 +112,18 @@ function setHash(hash) {
 }
 
 function clearHash() {
-  const params = {
-    to: hashStoreInstance.$address,
-    value: 10 // wei
-  };
+  return ethTx
+    .getNetwork()
+    .then(name => {
+      if (name != "ropsten")
+        throw new Error("Please, switch to the Ropsten network");
 
-  ethTx
-    .sendTransaction(params)
+      const params = {
+        to: hashStoreInstance.$address,
+        value: 10 // wei
+      };
+      return ethTx.sendTransaction(params);
+    })
     .then(result => {
       return displayHash();
     })
