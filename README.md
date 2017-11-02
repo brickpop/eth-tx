@@ -66,7 +66,7 @@ const { compileTo, compileBundled } = ethTx;
 ```
 
 ### In-memory
-Both in NodeJS and in the browser, you can use:
+In NodeJS you can use:
 
 ```javascript
 const smartContractSourceBundled = "...";
@@ -84,7 +84,7 @@ const fs = require('fs');
 const path = require('path');
 
 const source = path.join(__dirname, "contract-main.sol");
-const destination = path.join(__dirname, "..", "build", "data.js");
+const destination = path.join(__dirname, "..", "build", "contracts.js");
 
 if (!fs.existsSync(path.dirname(destination))) {
   fs.mkdirSync(path.dirname(destination));
@@ -245,14 +245,14 @@ These two functions are simply a wrapper of their corresponding method in `web3`
 
 ## Examples
 
-Check out the file `example/index.js`.
+Check out the file `example/node/index.js`.
 
 ```sh
-$ node example/index.js
+$ node example/node
 ```
 
 ## About
 
-This component is a work of Jordi Moraleda
+By Jordi Moraleda
 
-If you find it useful and make money with it, you can buy me a coffe ☕️ [0x093d4d1e3f8db7cfb06d3b638fbf44156e12b3dc](https://etherscan.io/address/0x093d4d1e3f8db7cfb06d3b638fbf44156e12b3dc#)
+You can buy me a coffe ☕️ [0x093d4d1e3f8db7cfb06d3b638fbf44156e12b3dc](https://etherscan.io/address/0x093d4d1e3f8db7cfb06d3b638fbf44156e12b3dc#)

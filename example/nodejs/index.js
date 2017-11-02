@@ -3,7 +3,7 @@
 // This would be
 // const ethTx = require('eth-tx');
 
-const ethTx = require("..");
+const ethTx = require("../..");
 const path = require("path");
 const fs = require("fs");
 
@@ -47,8 +47,8 @@ async function compile() {
   console.log("Compiling code");
 
   try {
-    var source = path.join(__dirname, "contract-main.sol");
-    var destination = path.join(__dirname, "..", "build", "data.js");
+    var source = path.join(__dirname, "..", "contract-main.sol");
+    var destination = path.join(__dirname, "..", "build", "contracts.js");
     if (!fs.existsSync(path.dirname(destination))) {
       fs.mkdirSync(path.dirname(destination));
     }
@@ -63,7 +63,11 @@ async function compile() {
 //
 
 async function deploy() {
-  const { HashStore, Owned } = require(path.join("..", "build", "data.js"));
+  const { HashStore, Owned } = require(path.join(
+    "..",
+    "build",
+    "contracts.js"
+  ));
   try {
     const HashStoreContract = ethTx.wrapContract(
       HashStore.abi,
@@ -113,7 +117,7 @@ async function deploy() {
 //
 
 async function reuseContract() {
-  const { HashStore } = require(path.join("..", "build", "data.js"));
+  const { HashStore } = require(path.join("..", "build", "contracts.js"));
   try {
     const HashStoreContract = ethTx.wrapContract(
       HashStore.abi,
