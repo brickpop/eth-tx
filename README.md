@@ -289,14 +289,16 @@ These two functions are simply a wrapper of their corresponding method in `web3`
 
 ## Examples
 
-Check out the file `example/node/index.js`.
+Check out the file `example/node/index.js` for a NodeJS script.
 
 ```sh
 $ node example/node
 ```
 
+Also check out the example client app on `example/client`. Run the `compile.sh` script and open `index.html`.
+
 ## About
 
 By Jordi Moraleda
 
-You can buy me a coffe ☕️ [0x093d4d1e3f8db7cfb06d3b638fbf44156e12b3dc](https://etherscan.io/address/0x093d4d1e3f8db7cfb06d3b638fbf44156e12b3dc#)
+<!-- You can buy me a coffe ☕️ [0x093d4d1e3f8db7cfb06d3b638fbf44156e12b3dc](https://etherscan.io/address/0x093d4d1e3f8db7cfb06d3b638fbf44156e12b3dc#)-->
