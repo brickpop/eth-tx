@@ -8,6 +8,8 @@ const {
   connect,
   useConnection,
   getCurrentWeb3,
+  isConnected,
+  onConnectionChanged,
   deployContract,
   delay,
   rpcSend,
@@ -35,6 +37,8 @@ module.exports = {
   connect,
   useConnection,
   getCurrentWeb3,
+  isConnected,
+  onConnectionChanged,
   delay,
   rpcSend,
 

@@ -1,5 +1,5 @@
 const ethTx = require("../..");
-const { HashStore } = require("../../build/contracts");
+const { HashStore } = require("../build/contracts");
 
 var hashStoreInstance = null;
 
@@ -16,8 +16,9 @@ function connect() {
 
 function init() {
   connect()
-    .then(() => {
-      setStatus("Web3 has been loaded");
+    .then(accounts => {
+      if (accounts && accounts.length) setStatus("Web3 has been loaded");
+      else setStatus("Please, unlock your wallet or create an account");
 
       return ethTx.getNetwork();
     })
@@ -25,8 +26,8 @@ function init() {
       if (name != "ropsten")
         throw new Error("Please, switch to the Ropsten network");
 
-      setInterval(displayHash, 3000);
-      return displayHash();
+      setInterval(updateStatus, 3000);
+      return updateStatus();
     })
     .catch(err => {
       alert(err.message);
@@ -45,7 +46,7 @@ function deploy() {
     .getAccounts()
     .then(accounts => {
       if (!accounts || !accounts.length)
-        throw new Error("Please, unlock your web3 wallet or create an account");
+        throw new Error("Please, unlock your wallet or create an account");
 
       const initialHash = "0x1234";
       setStatus("Deploying HashStore");
@@ -59,7 +60,7 @@ function deploy() {
     })
     .catch(err => {
       if (err && err.message == "No accounts are available")
-        setStatus("Please, unlock your web3 wallet or create an account");
+        setStatus("Please, unlock your wallet or create an account");
       else alert(err.message);
 
       setStatus(err.message);
@@ -73,7 +74,7 @@ function attachToContract() {
   }
 }
 
-function displayHash() {
+function updateStatus() {
   attachToContract();
 
   return hashStoreInstance
@@ -87,6 +88,14 @@ function displayHash() {
       setStatus(err.message);
     });
 }
+
+ethTx.onConnectionChanged(status => {
+  if (!status.connected)
+    setStatus("You are running a browser that does not support web3");
+  else if (status.accounts && status.accounts.length)
+    setStatus(`Web3 connection status changed (${status.network})`);
+  else setStatus("Please, unlock your wallet or create an account");
+});
 
 function setHash(hash) {
   attachToContract();
@@ -103,7 +112,7 @@ function setHash(hash) {
       console.log(result);
       setStatus("Updated the hash to " + hash);
 
-      return displayHash();
+      return updateStatus();
     })
     .catch(err => {
       alert(err.message);
@@ -125,7 +134,7 @@ function clearHash() {
       return ethTx.sendTransaction(params);
     })
     .then(result => {
-      return displayHash();
+      return updateStatus();
     })
     .catch(err => {
       alert(err.message);
