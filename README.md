@@ -57,6 +57,32 @@ useConnection(web3)
 	.catch(err => console.log("Error", err));
 ```
 
+At any time, you can check if a connection is already established:
+
+```javascript
+const { isConnected } = ethTx;
+
+isConnected(); // returns true or false
+```
+
+And you can also subscribe to connection status changes. You will receive a status object with the properties `{ connected, network, accounts }`.
+
+```javascript
+const { onConnectionChanged } = ethTx;
+
+onConnectionChanged(status => {
+	if(!status.connected) {
+		console.log("Web3 support is not available");
+	}
+	else if(status.accounts && status.accounts.length) {
+		console.log(`Connected to ${status.network} => ${status.accounts.join()}`);
+	}
+	else {
+		console.log(`The ${status.network} network is currently locked`);
+	}
+});
+```
+
 Some of the operations described below may require that a connection is already established.
 
 ## Compiling
