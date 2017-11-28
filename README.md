@@ -22,7 +22,15 @@ $ npm install eth-tx
 Once the package is ready, import it in your app:
 
 ```javascript
-const ethTx = require("eth-tx");
+// NodeJS
+const ethTx = require("eth-tx/node");
+```
+
+```
+// Browser
+<script src="node_modules/eth-tx/browser.min.js"/>
+
+// window.ethTx becomes available
 ```
 
 # Usage
