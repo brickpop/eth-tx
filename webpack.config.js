@@ -1,10 +1,10 @@
 // Webpack config to bundle the browser version
 
 module.exports = {
-  entry: "./index-browser.js",
+  entry: "./browser.js",
   output: {
     path: __dirname,
-    filename: "index-browser.min.js"
+    filename: "browser.min.js"
   },
   module: {
     loaders: [

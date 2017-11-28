@@ -28,7 +28,7 @@ const {
 
 const { wrapContract } = require("./lib/wrap.js");
 
-module.exports = {
+const ethTx = {
   connect,
   useConnection,
   getCurrentWeb3,
@@ -52,3 +52,5 @@ module.exports = {
   getTransactionReceipt,
   estimateGas
 };
+module.exports = ethTx;
+window.ethTx = ethTx;

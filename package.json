@@ -2,8 +2,7 @@
   "name": "eth-tx",
   "version": "0.9.5",
   "description": "",
-  "main": "index-nodejs.js",
-  "browser": "index-browser.min.js",
+  "main": "browser.min.js",
   "scripts": {
     "precommit": "lint-staged",
     "build": "webpack -p --config webpack.config.js"
