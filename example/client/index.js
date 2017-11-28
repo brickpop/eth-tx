@@ -1,4 +1,4 @@
-const ethTx = require("../..");
+const ethTx = require("../../index-browser"); // This would be require("eth-tx")
 const { HashStore } = require("../build/contracts");
 
 var hashStoreInstance = null;
@@ -6,10 +6,11 @@ var hashStoreInstance = null;
 const HashStoreContract = ethTx.wrapContract(HashStore.abi, HashStore.byteCode);
 
 function connect() {
-  if (typeof web3 !== "undefined") return ethTx.useConnection(web3);
-  else if (location.protocol == "file:")
+  if (typeof window.web3 !== "undefined") {
+    return ethTx.useConnection(window.web3);
+  } else if (location.protocol == "file:") {
     throw new Error("Can't connect to the Ethereum net from a local file://");
-  else {
+  } else {
     return ethTx.connect();
   }
 }
@@ -30,8 +31,8 @@ function init() {
       return updateStatus();
     })
     .catch(err => {
-      alert(err.message);
       setStatus(err.message);
+      // alert(err.message);
     });
 }
 
@@ -60,8 +61,8 @@ function deploy() {
     })
     .catch(err => {
       if (err && err.message == "No accounts are available")
-        setStatus("Please, unlock your wallet or create an account");
-      else alert(err.message);
+        return setStatus("Please, unlock your wallet or create an account");
+      // else alert(err.message);
 
       setStatus(err.message);
     });
@@ -91,7 +92,9 @@ function updateStatus() {
 
 ethTx.onConnectionChanged(status => {
   if (!status.connected)
-    setStatus("You are running a browser that does not support web3");
+    setStatus(
+      "You are running an unsupported browser or your connection is down"
+    );
   else if (status.accounts && status.accounts.length)
     setStatus(`Web3 connection status changed (${status.network})`);
   else setStatus("Please, unlock your wallet or create an account");
@@ -133,7 +136,7 @@ function clearHash() {
       };
       return ethTx.sendTransaction(params);
     })
-    .then(result => {
+    .then(() => {
       return updateStatus();
     })
     .catch(err => {

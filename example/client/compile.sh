@@ -8,4 +8,4 @@ if [ ! -f ../build/contracts.js ]; then
 fi
 
 # Package the JS bundle
-../../node_modules/.bin/webpack -p --config webpack.config.js
+npx webpack -p --config webpack.config.js
