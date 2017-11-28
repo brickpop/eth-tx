@@ -3,7 +3,7 @@
 // This would be
 // const ethTx = require('eth-tx');
 
-const ethTx = require("../..");
+const ethTx = require("../../node");
 const path = require("path");
 const fs = require("fs");
 
