@@ -26,12 +26,7 @@ const {
   estimateGas
 } = require("./lib/rpc.js");
 
-const {
-  compileTo,
-  compileBundled,
-  bundleContractFile,
-  wrapContract
-} = require("./lib/compile.js");
+const { wrapContract } = require("./lib/wrap.js");
 
 module.exports = {
   connect,
@@ -42,9 +37,6 @@ module.exports = {
   delay,
   rpcSend,
 
-  compileTo,
-  compileBundled,
-  bundleContractFile,
   wrapContract,
 
   deployContract,
