@@ -2,10 +2,11 @@
   "name": "eth-tx",
   "version": "0.9.5",
   "description": "",
-  "main": "index-node.js",
-  "browser": "index-browser.js",
+  "main": "index-nodejs.js",
+  "browser": "index-browser.min.js",
   "scripts": {
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "build": "webpack -p --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +20,10 @@
   },
   "homepage": "https://github.com/ledfusion/eth-tx#readme",
   "devDependencies": {
+    "@babel/core": "^7.0.0-beta.32",
+    "@babel/preset-env": "^7.0.0-beta.32",
     "babel-eslint": "^7.2.3",
+    "babel-loader": "^8.0.0-beta.0",
     "eslint": "^4.6.1",
     "husky": "^0.13.4",
     "lint-staged": "^3.6.1",
