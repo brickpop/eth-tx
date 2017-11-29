@@ -63,7 +63,7 @@ async function compile() {
 //
 
 async function deploy() {
-  const { HashStore, Owned } = require(path.join("build", "contracts.js"));
+  const { HashStore, Owned } = require("./build/contracts.js");
   try {
     const HashStoreContract = ethTx.wrapContract(
       HashStore.abi,
@@ -113,7 +113,7 @@ async function deploy() {
 //
 
 async function reuseContract() {
-  const { HashStore } = require(path.join("build", "contracts.js"));
+  const { HashStore } = require("./build/contracts.js");
   try {
     const HashStoreContract = ethTx.wrapContract(
       HashStore.abi,

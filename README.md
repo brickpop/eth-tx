@@ -9,9 +9,9 @@ Ethereum TX is a Javascript library inspired on the work of Jordy Baylina ([rune
 
 # Environment
 
-This library runs on NodeJS 7+ applications and in any modern web browser.
+**NOTE**: This version is only targeted for NodeJS usage.
 
-**NOTE**: The compilation functions involving disk read/write operations will only work in NodeJS.
+You may be able to import it using Webpack, but the compiler functions will not work, and ES6 features might need transpiling.
 
 # Installation
 
@@ -22,15 +22,7 @@ $ npm install eth-tx
 Once the package is ready, import it in your app:
 
 ```javascript
-// NodeJS
 const ethTx = require("eth-tx/node");
-```
-
-```
-// Browser
-<script src="node_modules/eth-tx/browser.min.js"/>
-
-// window.ethTx becomes available
 ```
 
 # Usage
