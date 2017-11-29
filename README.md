@@ -22,7 +22,7 @@ $ npm install eth-tx
 Once the package is ready, import it in your app:
 
 ```javascript
-const ethTx = require("eth-tx/node");
+const ethTx = require("eth-tx");
 ```
 
 # Usage
@@ -289,10 +289,10 @@ These two functions are simply a wrapper of their corresponding method in `web3`
 
 ## Examples
 
-Check out the file `example/node/index.js` for a NodeJS script.
+Check out the file `example/index.js` for a NodeJS script.
 
 ```sh
-$ node example/node
+$ node example
 ```
 
 Also check out the example client app on `example/client`. Run the `compile.sh` script and open `index.html`.
