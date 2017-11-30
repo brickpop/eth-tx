@@ -295,8 +295,6 @@ Check out the file `example/index.js` for a NodeJS script.
 $ node example
 ```
 
-Also check out the example client app on `example/client`. Run the `compile.sh` script and open `index.html`.
-
 ## About
 
 By Jordi Moraleda
