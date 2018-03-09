@@ -88,7 +88,7 @@ Some of the operations described below may require that a connection is already 
 ## Compiling
 
 ```javascript
-const { compileTo, compileBundled } = ethTx;
+const { compileTo, bundleContractFile } = ethTx;
 ```
 
 ### In-memory
