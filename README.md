@@ -88,17 +88,20 @@ Some of the operations described below may require that a connection is already 
 ## Compiling
 
 ```javascript
-const { compileTo, bundleContractFile } = ethTx;
+const { compileTo, compileBundled, bundleContractFile } = ethTx;
 ```
 
 ### In-memory
 In NodeJS you can use:
 
 ```javascript
-const smartContractSourceBundled = "...";
-
-bundleContractFile(smartContractSourceBundled)
-	.then(contracts => { /* ... */})
+bundleContractFile(entrySrcFile)
+	.then(smartContractSourceBundled => {
+		return compileBundled(smartContractSourceBundled)
+	})
+	.then(contracts => {
+		// your code here
+	})
 	.catch(err => console.log("Error", err));
 ```
 
