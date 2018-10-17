@@ -1,6 +1,6 @@
 {
   "name": "eth-tx",
-  "version": "0.9.7",
+  "version": "0.10.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -20,14 +20,14 @@
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "eslint": "^4.6.1",
-    "husky": "^0.13.4",
-    "lint-staged": "^3.6.1",
-    "prettier": "^1.4.4"
+    "husky": "^1.1.2",
+    "lint-staged": "^7.3.0",
+    "prettier": "^1.14.3"
   },
   "dependencies": {
-    "bluebird": "^3.5.0",
-    "solc": "^0.4.16",
-    "web3": "^1.0.0-beta.23"
+    "bluebird": "^3.5.2",
+    "solc": "^0.4.25",
+    "web3": "^1.0.0-beta.36"
   },
   "lint-staged": {
     "*.js": [
